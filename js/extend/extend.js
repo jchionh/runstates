@@ -8,6 +8,7 @@ rs.utils = rs.utils || {};
 
 /**
  * implement the extend using prototype inheritance extend method
+ * 
  * @param {Object} newObject the derived object
  * @param {Object} baseObject the base object to derive from
  */
