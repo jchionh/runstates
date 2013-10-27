@@ -5,7 +5,7 @@
  */
 
 // namespace
-rs.runner = rs.runner || {};
+rt.runner = rt.runner || {};
 
 /**
  * runstate flag
@@ -16,9 +16,9 @@ rs.runner = rs.runner || {};
  * RUN_LOWER:     with this flag, any state below this state in the stack, we run them.
  *
  * @const
- * @type {rs.runner.RunFlag}
+ * @type {rt.runner.RunFlag}
  */
-rs.runner.RunFlag = { "SUSPEND_LOWER": 0, "RUN_LOWER": 1 };
+rt.runner.RunFlag = { "SUSPEND_LOWER": 0, "RUN_LOWER": 1 };
 
 /**
  * BaseRunState defines a base state of the state machine.
@@ -29,13 +29,13 @@ rs.runner.RunFlag = { "SUSPEND_LOWER": 0, "RUN_LOWER": 1 };
  * onRender(dt)
  * onStop()
  *
- * @param {rs.runner.RunFlag} runFlag
+ * @param {rt.runner.RunFlag} runFlag
  * @constructor
  */
-rs.runner.BaseRunState = function(runFlag) {
+rt.runner.BaseRunState = function(runFlag) {
 
     // default suspend lower if runFlag is not set
-    this.runFlag = runFlag || rs.runner.RunFlag.SUSPEND_LOWER;
+    this.runFlag = runFlag || rt.runner.RunFlag.SUSPEND_LOWER;
 
     // if stopped, our state runner will stop this state and remove it from the run stack
     this.stopped = false;
@@ -44,13 +44,13 @@ rs.runner.BaseRunState = function(runFlag) {
 /**
  * onStart is called once when this state is added to the run stack
  */
-rs.runner.BaseRunState.prototype.onStart = function() {
+rt.runner.BaseRunState.prototype.onStart = function() {
 };
 
 /**
  * onStop is called once when this stat is removed from the run stack
  */
-rs.runner.BaseRunState.prototype.onStop = function() {
+rt.runner.BaseRunState.prototype.onStop = function() {
 };
 
 /**
@@ -59,7 +59,7 @@ rs.runner.BaseRunState.prototype.onStop = function() {
  *
  * @param {number} dt the delta time since the last call
  */
-rs.runner.BaseRunState.prototype.onUpdate = function(dt) {
+rt.runner.BaseRunState.prototype.onUpdate = function(dt) {
 };
 
 /**
@@ -69,7 +69,7 @@ rs.runner.BaseRunState.prototype.onUpdate = function(dt) {
  * @param {number} dt
  * @param {Object} ctx the rendering context, -- can be gl, or 2d canvas
  */
-rs.runner.BaseRunState.prototype.onRender = function(dt, ctx) {
+rt.runner.BaseRunState.prototype.onRender = function(dt, ctx) {
     //console.log('BaseRunState::onRender');
 };
 
@@ -78,6 +78,6 @@ rs.runner.BaseRunState.prototype.onRender = function(dt, ctx) {
  *
  * @return {Boolean}
  */
-rs.runner.BaseRunState.prototype.suspendLower = function() {
-    return this.runFlag === rs.runner.RunFlag.SUSPEND_LOWER;
+rt.runner.BaseRunState.prototype.suspendLower = function() {
+    return this.runFlag === rt.runner.RunFlag.SUSPEND_LOWER;
 };

@@ -4,15 +4,15 @@
  * Time: 2:35 PM
  */
 // create namespace
-rs.utils = rs.utils || {};
+rt.utils = rt.utils || {};
 
 /**
  * implement the extend using prototype inheritance extend method
- * 
+ *
  * @param {Object} newObject the derived object
  * @param {Object} baseObject the base object to derive from
  */
-rs.utils.extend = function(newObject, baseObject) {
+rt.utils.extend = function(newObject, baseObject) {
     newObject.prototype = new baseObject();
     newObject.prototype.constructor = newObject;
 };

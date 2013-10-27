@@ -5,7 +5,7 @@
  */
 
 // namespace
-rs.runner = rs.runner || {};
+rt.runner = rt.runner || {};
 
 /**
  * StateRunner class
@@ -43,11 +43,11 @@ rs.runner = rs.runner || {};
  *
  * @constructor
  */
-rs.runner.StateRunner = function() {
+rt.runner.StateRunner = function() {
 
     /**
      * this is our run stack;
-     * @type {Array<rs.runner.BaseRunState>}
+     * @type {Array<rt.runner.BaseRunState>}
      */
     this.stack = [];
 };
@@ -56,13 +56,13 @@ rs.runner.StateRunner = function() {
  * when destroy is called, we call all currently runing
  * state onStop() and release ressources of the states
  */
-rs.runner.StateRunner.prototype.destroy = function() {
+rt.runner.StateRunner.prototype.destroy = function() {
 
     var count = this.stack.length;
     // iterate and call release on all states in the stack
     for (var i = 0; i < count; ++i) {
         /**
-         * @type {rs.runner.BaseRunState}
+         * @type {rt.runner.BaseRunState}
          */
         var state = this.stack[i];
         state.onStop();
@@ -77,9 +77,9 @@ rs.runner.StateRunner.prototype.destroy = function() {
 /**
  * adding a state to the stack, here, we'll call onStart
  *
- * @param {rs.runner.BaseRunState} state
+ * @param {rt.runner.BaseRunState} state
  */
-rs.runner.StateRunner.prototype.addState = function(state) {
+rt.runner.StateRunner.prototype.addState = function(state) {
     // push the game state onto the stack
     this.stack.push(state);
     // call the onStart of the state
@@ -89,9 +89,9 @@ rs.runner.StateRunner.prototype.addState = function(state) {
 /**
  * switch state pops the topmost state and replaces that with the new state
  *
- * @param {rs.runner.BaseRunState} state
+ * @param {rt.runner.BaseRunState} state
  */
-rs.runner.StateRunner.prototype.switchState = function(state) {
+rt.runner.StateRunner.prototype.switchState = function(state) {
     this.popState();
     this.addState(state);
 };
@@ -99,9 +99,9 @@ rs.runner.StateRunner.prototype.switchState = function(state) {
 /**
  * we remove the top state here
  */
-rs.runner.StateRunner.prototype.popState = function() {
+rt.runner.StateRunner.prototype.popState = function() {
     /**
-     * @type {rs.runner.BaseRunState}
+     * @type {rt.runner.BaseRunState}
      */
     var state = this.stack.pop();
     if (state !== null) {
@@ -114,7 +114,7 @@ rs.runner.StateRunner.prototype.popState = function() {
  *
  * @param {number} dt
  */
-rs.runner.StateRunner.prototype.update = function(dt) {
+rt.runner.StateRunner.prototype.update = function(dt) {
 
     var topIndex = this.stack.length - 1;
 
@@ -122,7 +122,7 @@ rs.runner.StateRunner.prototype.update = function(dt) {
     // until it hits a state where the runflag is suspend lower, then it breaks
     for (var i = topIndex; i >= 0; --i) {
         /**
-         * @type {rs.runner.BaseRunState}
+         * @type {rt.runner.BaseRunState}
          */
         var currentState = this.stack[i];
         currentState.onUpdate(dt);
@@ -143,13 +143,13 @@ rs.runner.StateRunner.prototype.update = function(dt) {
  * @param {number} dt
  * @param {Object} ctx
  */
-rs.runner.StateRunner.prototype.render = function(dt, ctx) {
+rt.runner.StateRunner.prototype.render = function(dt, ctx) {
     var topIndex = this.stack.length - 1;
     // implement running the states from the top of the stack downwards
     // until it hits a state where the runflag is suspend lower, then it breaks
     for (var i = topIndex; i >= 0; --i) {
         /**
-         * @type {rs.runner.BaseRunState}
+         * @type {rt.runner.BaseRunState}
          */
         var currentState = this.stack[i];
         currentState.onRender(dt, ctx);
@@ -164,7 +164,7 @@ rs.runner.StateRunner.prototype.render = function(dt, ctx) {
 /**
  * now we check our states to see if the states have stopped, and remove them
  */
-rs.runner.StateRunner.prototype.checkAndRemove = function() {
+rt.runner.StateRunner.prototype.checkAndRemove = function() {
     // now step through the stack again from bottom up to find the first state that
     // exited. if this state exited, we remove this state and all states above it
     var count = this.stack.length;
@@ -173,7 +173,7 @@ rs.runner.StateRunner.prototype.checkAndRemove = function() {
     var i;
     for (i = 0; i < count; ++i) {
         /**
-         * @type {rs.runner.BaseRunState}
+         * @type {rt.runner.BaseRunState}
          */
         currentState = this.stack[i];
         if (currentState.stopped === true) {
@@ -190,7 +190,7 @@ rs.runner.StateRunner.prototype.checkAndRemove = function() {
         // the states in the right order
         for (i = count - 1; i >= firstIndex; --i) {
             /**
-             * @type {rs.runner.BaseRunState}
+             * @type {rt.runner.BaseRunState}
              */
             currentState = this.stack[i];
             currentState.onStop();
